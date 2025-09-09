@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Chatbot</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; }
+    #chatbox { width: 400px; margin: auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+    #messages { height: 250px; overflow-y: auto; margin-bottom: 10px; }
+    .msg { padding: 5px; margin: 5px 0; }
+    .user { text-align: right; color: blue; }
+    .bot { text-align: left; color: green; }
+  </style>
+</head>
+<body>
+  <div id="chatbox">
+    <div id="messages"></div>
+    <input id="userInput" type="text" placeholder="Ask about diseases..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const knowledgeBase = {
+      "dengue": "Dengue symptoms include high fever, headache, joint pain, and skin rash.",
+      "malaria": "Malaria symptoms include fever, chills, sweating, and nausea.",
+      "covid": "COVID-19 symptoms include fever, cough, difficulty breathing, and loss of taste or smell.",
+      "flu": "Flu symptoms include fever, cough, sore throat, and fatigue."
+    };
+
+    function sendMessage() {
+      const input = document.getElementById("userInput").value.toLowerCase();
+      const messages = document.getElementById("messages");
+
+      // Add user message
+      messages.innerHTML += `<div class="msg user">${input}</div>`;
+
+      // Find matching answer
+      let response = "Sorry, I don't know about that. Please consult a doctor.";
+      for (let key in knowledgeBase) {
+        if (input.includes(key)) {
+          response = knowledgeBase[key];
+          break;
+        }
+      }
+
+      // Add bot response
+      messages.innerHTML += `<div class="msg bot">${response}</div>`;
+      document.getElementById("userInput").value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
