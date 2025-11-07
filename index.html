@@ -1,53 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Health Chatbot</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; }
-    #chatbox { width: 400px; margin: auto; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
-    #messages { height: 250px; overflow-y: auto; margin-bottom: 10px; }
-    .msg { padding: 5px; margin: 5px 0; }
-    .user { text-align: right; color: blue; }
-    .bot { text-align: left; color: green; }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DoctorPlus</title>
+
+    <!-- tailwind link -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div id="chatbox">
-    <div id="messages"></div>
-    <input id="userInput" type="text" placeholder="Ask about diseases..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
 
-  <script>
-    const knowledgeBase = {
-      "dengue": "Dengue symptoms include high fever, headache, joint pain, and skin rash.",
-      "malaria": "Malaria symptoms include fever, chills, sweating, and nausea.",
-      "covid": "COVID-19 symptoms include fever, cough, difficulty breathing, and loss of taste or smell.",
-      "flu": "Flu symptoms include fever, cough, sore throat, and fatigue."
-    };
+<body class="bg-slate-50 text-slate-800">
+    <!-- header -->
+    <header class="bg-[#0077b6] text-white">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="#" class="text-2xl font-semibold">DoctorPlus 🩺</a>
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="hover:underline" href="#">Overview</a>
+                <a class="hover:underline" href="assistant.html">AI Assistant</a>
+            </nav>
+            <button id="mobileBtn" class="md:hidden">☰</button>
+        </div>
+        <!-- mobile view -->
+        <div id="mobileMenu" class="md:hidden bg-[#006494] px-4 py-4 hidden">
+            <a class="block py-2 text-white" href="#">Overview</a>
+            <a class="block py-2 text-white" href="assistant.html">AI Assistant</a>
+        </div>
+    </header>
 
-    function sendMessage() {
-      const input = document.getElementById("userInput").value.toLowerCase();
-      const messages = document.getElementById("messages");
+    <!-- hero -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#0077b6] leading-tight">DoctorPlus - Your AI Health Companion</h1>
+            <p class="mt-4 text-lg text-slate-700">Instant health awareness, verified disease information, and prevention tips to keep you and your loved ones safe.</p>
+            <div class="mt-6 flex flex-wrap justify-center gap-3">
+                <a href="assistant.html" class="px-6 py-3 bg-[#0077b6] text-white rounded-lg shadow hover:bg [#023e8a] transition">Get Started</a>
+                <a href="#" class="px-6 py-3 border border-[#0077b6] text-[#0077b6] rounded-lg hover:bg-[#0077b6] hover:text-white transition">Learn More</a>
+            </div>
+        </div>
 
-      // Add user message
-      messages.innerHTML += `<div class="msg user">${input}</div>`;
+        <!-- about -->
+        <section class="mt-16 text-center">
+            <h2 class="text-3xl font-bold text-[#023e8a]">About DoctorPlus</h2>
+            <p class="mt-4 max-w-3xl mx-auto text-slate-700">DoctorPlus is an AI-driven health assistant designed to provide instant answers to common disease-related queries. From identifying symptoms to understanding prevention, DoctorPlus empowers users with reliable, educational, and accessible health knowledge - right from their device.</p>
+        </section>
 
-      // Find matching answer
-      let response = "Sorry, I don't know about that. Please consult a doctor.";
-      for (let key in knowledgeBase) {
-        if (input.includes(key)) {
-          response = knowledgeBase[key];
-          break;
-        }
-      }
+        <!-- features -->
+        <section class="mt-16">
+            <h2 class="text-3xl font-bold text-center text-[#023e8a]">Key Features</h2>
+            <div class="grid md:grid-cols-3 gap-8 mt-8">
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                    <h3 class="text-xl font-semibold text-[#0077b6] mb-2">🤖 Smart Chatbot</h3>
+                    <p class="text-slate-600">Ask health-related questions anytime, anywhere. Get symptom, prevention, and awareness information instantly.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                    <h3 class="text-xl font-semibold text-[#0077b6] mb-2">📚 Verified Data</h3>
+                    <p class="text-slate-600">All information is sourced from reliable medical and public health references, ensuring accuracy and trustworthiness.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                    <h3 class="text-xl font-semibold text-[#0077b6] mb-2">🌍 Accessible Design</h3>
+                    <p class="text-slate-600">Built to be responsive and user-friendly, accessible to people on all devices - from mobile to desktop.</p>
+                </div>
+            </div>
+        </section>
 
-      // Add bot response
-      messages.innerHTML += `<div class="msg bot">${response}</div>`;
-      document.getElementById("userInput").value = "";
-      messages.scrollTop = messages.scrollHeight;
-    }
-  </script>
+        <!-- mission -->
+        <section class="mt-20 bg-[#0077b6]/10 rounded-xl p-10 text-center">
+            <h2 class="text-3xl font-bold text-[#023e8a]">Our Mission</h2>
+            <p class="mt-4 text-lg text-slate-700 max-w-2xl mx-auto">DoctorPlus aims to promote early awareness and preventive healthcare through AI assistance. We believe everyone should have access to essential medical guidance - simple, safe, and free of cost. </p>
+        </section>
+
+        <!-- contact -->
+        <section class="mt-16 text-center">
+            <h2 class="text-3xl font-bold text-[#023e8a]">Get in Touch</h2>
+            <p class="mt-4 text-slate-700">Have suggestions or feedback? Reach out to us below.</p>
+            <form class="mt-6 max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+                <input type="text" placeholder="Your Name" class="w-full border rounded px-3 py-2 mb-3" required>
+                <input type="email" placeholder="Your Email" class="w-full border rounded px-3 py-2 mb-3" required>
+                <textarea placeholder="Your Message" class="w-full border rounded px-3 py-2 mb-3" rows="4" required></textarea>
+                <button type="submit" class="bg-[#0077b6] text-white px-6 py-2 rounded hover:bg-[#023e8a] transition">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="bg-[#023e8a] text-white py-6 mt-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>© 2025 DoctorPlus</div>
+            <div class="text-sm">Empowering Health Awareness</div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobileBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+    </script>
 </body>
+
 </html>
