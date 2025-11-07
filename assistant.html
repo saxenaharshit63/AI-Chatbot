@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AI Assistant</title>
+
+    <!-- tailwind link -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+    <!-- header -->
+    <header class="bg-[#0077b6] text-white">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-semibold">DoctorPlus 🩺</a>
+            <nav class="hidden md:flex gap-6 items-center">
+                <a class="hover:underline" href="index.html">Overview</a>
+                <a class="hover:underline font-semibold" href="#">AI Assistant</a>
+            </nav>
+            <button id="mobileBtn" class="md:hidden">☰</button>
+        </div>
+        <!-- mobile view -->
+        <div id="mobileMenu" class="md:hidden bg-[#006494] px-4 py-4 hidden">
+            <a class="block py-2 text-white" href="index.html">Overview</a>
+            <a class="block py-2 text-white" href="#">AI Assistant</a>
+        </div>
+    </header>
+
+    <!-- assistant -->
+    <main class="container mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#0077b6]">Ask DoctorPlus 🩺</h1>
+            <p class="mt-3 text-slate-700 max-w-2xl mx-auto">Your personal AI health assistant - ask about diseases,
+                symptoms, or prevention tips, and get instant trusted information.</p>
+        </div>
+
+        <div id="chatbox" class="max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-6">
+            <div id="messages" class="h-80 overflow-y-auto border border-slate-200 rounded-lg p-3 mb-4 bg-slate-50">
+            </div>
+            <div class="flex gap-2">
+                <input id="userInput" type="text" placeholder="Ask about diseases..."
+                    class="flex-grow border border-slate-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0077b6]">
+                <button onclick="sendMessage()"
+                    class="bg-[#0077b6] text-white px-4 py-2 rounded-lg hover:bg-[#023e8a] transition">Send</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="bg-[#023e8a] text-white py-6 mt-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>© 2025 DoctorPlus</div>
+            <div class="text-sm">Empowering Health Awareness</div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('mobileBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+
+        const knowledgeBase = {
+            "dengue": {
+                symptoms: "High fever, severe headache, joint and muscle pain, skin rash.",
+                prevention: "Use mosquito nets, avoid stagnant water, and wear long-sleeved clothing."
+            },
+            "malaria": {
+                symptoms: "Fever, chills, sweating, headache, and nausea.",
+                prevention: "Use mosquito repellents, sleep under treated nets, and eliminate stagnant water."
+            },
+            "covid": {
+                symptoms: "Fever, cough, difficulty breathing, loss of taste or smell.",
+                prevention: "Wear masks, wash hands regularly, and maintain social distancing."
+            },
+            "flu": {
+                symptoms: "Fever, cough, sore throat, runny nose, and fatigue.",
+                prevention: "Get vaccinated, wash hands often, and avoid close contact with sick people."
+            },
+            "typhoid": {
+                symptoms: "Prolonged fever, weakness, stomach pain, headache, and loss of appetite.",
+                prevention: "Drink clean water, wash hands before meals, and avoid street food."
+            },
+            "cholera": {
+                symptoms: "Severe watery diarrhea, dehydration, and muscle cramps.",
+                prevention: "Drink boiled or filtered water, maintain hygiene, and eat fresh food."
+            },
+            "asthma": {
+                symptoms: "Shortness of breath, coughing, wheezing, and chest tightness.",
+                prevention: "Avoid allergens, dust, and pollution; use inhalers as prescribed."
+            },
+            "diabetes": {
+                symptoms: "Frequent urination, excessive thirst, weight loss, and fatigue.",
+                prevention: "Eat a balanced diet, exercise regularly, and monitor blood sugar levels."
+            },
+            "hypertension": {
+                symptoms: "Often no symptoms, sometimes headaches or dizziness.",
+                prevention: "Reduce salt intake, manage stress, exercise, and maintain a healthy diet."
+            },
+            "common cold": {
+                symptoms: "Sneezing, sore throat, mild fever, and runny nose.",
+                prevention: "Wash hands frequently, avoid touching the face, and stay warm."
+            },
+            "fever": {
+                symptoms: "Elevated body temperature, sweating, chills, and weakness.",
+                prevention: "Stay hydrated, rest, and seek medical attention if it persists."
+            },
+            "tuberculosis": {
+                symptoms: "Chronic cough, chest pain, fatigue, fever, and weight loss.",
+                prevention: "Cover mouth when coughing, get vaccinated (BCG), and ensure proper ventilation."
+            }
+        };
+
+        function sendMessage() {
+            const input = document.getElementById("userInput").value.toLowerCase().trim();
+            const messages = document.getElementById("messages");
+
+            if (input === "") return;
+
+            // User message
+            messages.innerHTML += `<div class="text-right text-blue-600 mb-2"><span class="inline-block bg-blue-100 px-3 py-2 rounded-lg">${input}</span></div>`;
+
+            // Bot response
+            let response = "⚠️ Sorry, I don't have information about that. Please consult a doctor.";
+            for (let key in knowledgeBase) {
+                if (input.includes(key)) {
+                    const data = knowledgeBase[key];
+                    response = `<b>🩺 Symptoms:</b> ${data.symptoms}<br><b>🛡️ Prevention:</b> ${data.prevention}`;
+                    break;
+                }
+            }
+
+            messages.innerHTML += `<div class="text-left text-green-600 mb-2"><span class="inline-block bg-green-100 px-3 py-2 rounded-lg">${response}</span></div>`;
+            document.getElementById("userInput").value = "";
+            messages.scrollTop = messages.scrollHeight;
+        }
+    </script>
+
+</body>
+
+</html>
